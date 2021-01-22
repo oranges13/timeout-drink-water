@@ -1,0 +1,19 @@
+{
+  "author": {
+    "name" : "Elanor Riley",
+    "email" : "elanor@elanorriley.com",
+    "url" : "https://elanor.dev/"
+  },
+  "credits": {
+    "url": "https://unsplash.com",
+    "name": "unsplash.com"
+  },
+  "comments" : "Remind yourself to drink water with these hydration-themed stock images from Unsplash",
+  "rootDocument" : "index.html",
+  "type" : "html5",
+  "created" : "2021-01-15",
+  "identifier" : "DrinkWaterReminder",
+  "version" : 1,
+  "modified" : "2021-01-15",
+  "name" : "Drink Water Reminder"
+}
