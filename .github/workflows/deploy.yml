@@ -1,0 +1,17 @@
+name: Deployment
+
+on:
+  push:
+    branches: [ production ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to production
+      uses: appleboy/ssh-action@master
+      with:
+        username: ${{ secrets.USERNAME }}
+        host: ${{ secrets.HOST }}
+        key: ${{ secrets.SSH_KEY }}
+        script: 'cd api.elanorriley.com/timeout-drink-water/api && ./server_deploy.sh'

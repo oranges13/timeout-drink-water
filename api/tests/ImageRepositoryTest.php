@@ -30,7 +30,7 @@ class ImageRepositoryTest extends TestCase
             ])
         ]);
 
-        $response = $this->repository->getRandom(800,600);
+        $response = $this->repository->getRandom();
 
         Http::assertSent(function ($request) {
             return str_starts_with($request->url(), "https://api.pexels.com/v1/search");

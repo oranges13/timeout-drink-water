@@ -14,5 +14,6 @@
         <env name="CACHE_DRIVER" value="array"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="DEFAULT_IMAGE_PROVIDER" value="pexels"/>
+        <env name="PEXELS_API_URL" value="https://api.pexels.com/v1"></env>
     </php>
 </phpunit>
