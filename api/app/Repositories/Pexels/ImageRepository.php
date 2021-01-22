@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\Pexels;
-
 
 use App\Contracts\Repositories\ImageRepositoryInterface;
 use Illuminate\Support\Facades\Cache;
@@ -10,7 +8,6 @@ use Illuminate\Support\Facades\Http;
 
 class ImageRepository implements ImageRepositoryInterface
 {
-
     /** @var string */
     protected $client_id;
 
@@ -24,25 +21,26 @@ class ImageRepository implements ImageRepositoryInterface
     }
 
     /**
-     * Query for random photo based on provided data
+     * Query for random photo based on provided data.
+     *
      * @return array Array with 'url', 'alt', 'color', and 'credit' keys that will be returned to the controller
      */
     public function getRandom()
     {
-        $photo = Cache::remember('pexels_random', 300, function() {
+        $photo = Cache::remember('pexels_random', 300, function () {
             // Get initial query of photos
             $response = Http::withHeaders([
                 'Authorization' => $this->client_id,
-            ])->get($this->base_url . '/search', [
-                'query' => 'hydrate',
+            ])->get($this->base_url.'/search', [
+                'query'       => 'hydrate',
                 'orientation' => 'landscape',
-                'size' => 'medium',
+                'size'        => 'medium',
             ])->throw();
 
             $photos = collect($response->json());
             $total_results = $photos['total_results'];
             $per_page = $photos['per_page'] ?? 15;
-            $total_pages = floor($total_results/$per_page);
+            $total_pages = floor($total_results / $per_page);
 
             // Grab a random page from the result set
             $get_page = rand(1, $total_pages);
@@ -54,11 +52,11 @@ class ImageRepository implements ImageRepositoryInterface
                 // Grab a random page and return the random photo
                 $randomPhoto = Http::withHeaders([
                     'Authorization' => $this->client_id,
-                ])->get($this->base_url . '/search', [
-                    'query' => 'hydration',
+                ])->get($this->base_url.'/search', [
+                    'query'       => 'hydration',
                     'orientation' => 'landscape',
-                    'size' => 'medium',
-                    'page' => $get_page,
+                    'size'        => 'medium',
+                    'page'        => $get_page,
                 ])->throw();
 
                 return $randomPhoto['photos'][$get_photo];
@@ -66,11 +64,10 @@ class ImageRepository implements ImageRepositoryInterface
         });
 
         return [
-            'url' => $photo['src']['original'] . "?",
-            'alt' => $photo['photographer'],
-            'color' => $photo['avg_color'],
-            'credit' => 'Photo by ' . $photo['photographer'] . ' on ' . config('image.providers.pexels.attribution'),
+            'url'    => $photo['src']['original'].'?',
+            'alt'    => $photo['photographer'],
+            'color'  => $photo['avg_color'],
+            'credit' => 'Photo by '.$photo['photographer'].' on '.config('image.providers.pexels.attribution'),
         ];
     }
-
 }

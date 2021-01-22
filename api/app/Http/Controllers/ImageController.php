@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Cache;
 
 class ImageController extends Controller
 {
-
     protected $imageRepository;
 
     /**
@@ -24,12 +23,12 @@ class ImageController extends Controller
     public function show($width, $height)
     {
         // Cache result with large image url
-        $photo = Cache::remember("photo", 300, function () {
+        $photo = Cache::remember('photo', 300, function () {
             return $this->imageRepository->getRandom();
         });
 
         // Image providers accept dynamic width / height and pixel resolution data (see https://docs.imgix.com/apis/rendering for all options)
-        $photo['url'] = $photo['url'] . "w={$width}&h={$height}&dpr=2&auto=compress";
+        $photo['url'] = $photo['url']."w={$width}&h={$height}&dpr=2&auto=compress";
 
         return response()->json($photo, 200, ['Access-Control-Allow-Origin' => '*'], JSON_UNESCAPED_SLASHES);
     }

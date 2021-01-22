@@ -1,10 +1,9 @@
 <?php
 
-
 namespace App\Contracts\Repositories;
 
 /**
- * Interface for any image provider CRUD actions
+ * Interface for any image provider CRUD actions.
  */
 interface ImageRepositoryInterface
 {
