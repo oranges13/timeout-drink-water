@@ -28,7 +28,7 @@ class ImageController extends Controller
         });
 
         // Image providers accept dynamic width / height and pixel resolution data (see https://docs.imgix.com/apis/rendering for all options)
-        $photo['url'] = $photo['url']."w={$width}&h={$height}&dpr=2&auto=compress";
+        $photo['url'] = $photo['url']."w={$width}&h={$height}&dpr=2&auto=compress&cs=tinysrgb";
 
         return response()->json($photo, 200, ['Access-Control-Allow-Origin' => '*'], JSON_UNESCAPED_SLASHES);
     }
